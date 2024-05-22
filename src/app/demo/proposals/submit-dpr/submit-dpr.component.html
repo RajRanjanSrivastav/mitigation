@@ -1,0 +1,1375 @@
+<form [formGroup]="DPR" (ngSubmit)="HandleSubmit()">
+  <mat-stepper labelPosition="bottom" [linear]="isLinear" #stepper>
+    <!-- project details start -->
+    <mat-step [stepControl]="projectDetailsform">
+      <div formGroupName="projectDetails">
+        <ng-template matStepLabel>Project Details</ng-template>
+        <div class="card mt-2">
+          <div class="card-body">
+            <div class="d-flex justify-content-center">
+              <p class="fs-4 fw-bold">Project Details</p>
+            </div>
+            <div class="row">
+              <div class="col-12 col-md-6">
+                <div class="mb-3">
+                  <label for="projectTitle" class="form-label">Project Title</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="projectTitle"
+                    id="projectTitle"
+                    placeholder="Enter your Project title"
+                  />
+                </div>
+              </div>
+              <div class="col-12 col-md-6">
+                <div class="mb-3">
+                  <label for="typesOfProject" class="form-label">Types of Project</label>
+                  <input
+                    class="form-control"
+                    formControlName="typesOfProject"
+                    list="projectOptionsDpr"
+                    id="typesOfProject"
+                    placeholder="Choose your Project Type"
+                  />
+                  <datalist id="projectOptionsDpr">
+                    <option value="Infrastructure Project"> </option>
+                    <option value="Non-Infrastructure Project"> </option>
+                    <option value="Mixed"> </option>
+                  </datalist>
+                </div>
+              </div>
+
+              <div class="col-12 col-md-6">
+                <div class="mb-3">
+                  <label for="totalEstimatedBud" class="form-label">Total Estimated Budget <span class="fw-bold">(In INR)</span></label>
+                  <input
+                    class="form-control"
+                    formControlName="totalEstimatedBud"
+                    type="number"
+                    id="totalEstimatedBud"
+                    placeholder="Enter total estimated budget in INR"
+                  />
+                </div>
+              </div>
+              <div class="col-12 col-md-6">
+                <div class="mb-3">
+                  <label for="totalDuration" class="form-label">Duration of the Project <span class="fw-bold">(In Months)</span></label>
+                  <input
+                    class="form-control"
+                    formControlName="totalDuration"
+                    type="number"
+                    id="totalDuration"
+                    placeholder="Enter total duration of project"
+                  />
+                </div>
+              </div>
+            </div>
+            <div>
+              <p class="fs-5 fw-bold">Project Description</p>
+            </div>
+            <div class="col-12">
+              <div class="mb-3">
+                <label for="summaryProject" class="form-label"
+                  >Summary of the Project (Summarize the Project Scope, Rationale And Activities)</label
+                >
+                <textarea formControlName="summaryProject" class="form-control" id="summaryProject" rows="3"></textarea>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="mb-3">
+                <label for="goalsDpr" class="form-label">Goals (Describe The Overall Goals That The Project Proposes To Achieve)</label>
+                <textarea formControlName="goalsDpr" class="form-control" id="goalsDpr" rows="3"></textarea>
+              </div>
+            </div>
+            <div class="col-12 mb-2">
+              <div class="d-flex justify-content-between mb-2">
+                <p class="fs-5 fw-bold">Project Location</p>
+                <button type="button" class="btn btn-primary" (click)="addMoreRows('projectLocation')"
+                  ><i class="bi bi-plus-circle-fill"></i
+                ></button>
+              </div>
+              <div class="table-responsive">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th scope="col" class="minWidthSr">Sr No.</th>
+                      <th scope="col">Site No.</th>
+                      <th scope="col">State</th>
+                      <th scope="col">District</th>
+                      <th scope="col">Village</th>
+                      <th scope="col">Block</th>
+                      <th scope="col">Geographical Coordinates</th>
+                      <th scope="col">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody formArrayName="projectLocation">
+                    <tr *ngFor="let row of projectLocationArr.controls; let i = index" [formGroupName]="i">
+                      <td>
+                        <span>{{ i + 1 }}</span>
+                      </td>
+                      <td>
+                        <input type="text" class="form-control" formControlName="siteNo" placeholder="Enter the Site number" />
+                      </td>
+                      <td>
+                        <input
+                          class="form-control"
+                          formControlName="stateDpr"
+                          list="stateOptions"
+                          id="stateDpr"
+                          placeholder="Choose your State"
+                        />
+                        <datalist id="stateOptions">
+                          <option value="UttarPradesh"></option>
+                          <option value="Bihar"></option>
+                          <option value="Other"></option>
+                        </datalist>
+                      </td>
+                      <td>
+                        <input
+                          class="form-control"
+                          formControlName="districtDpr"
+                          list="districtOptions"
+                          id="stateDpr"
+                          placeholder="Choose your State"
+                        />
+                        <datalist id="districtOptions">
+                          <option value="SKN"></option>
+                          <option value="Basti"></option>
+                          <option value="GKP"></option>
+                        </datalist>
+                      </td>
+                      <td>
+                        <input type="text" class="form-control" formControlName="villageDpr" placeholder="Enter the village name" />
+                      </td>
+                      <td>
+                        <input type="text" class="form-control" formControlName="blockDpr" placeholder="Enter the block name" />
+                      </td>
+
+                      <td>
+                        <input
+                          type="text"
+                          class="form-control"
+                          formControlName="geoCordDpr"
+                          placeholder="Enter the Geographical Coordinates"
+                        />
+                      </td>
+                      <td>
+                        <button type="button" class="btn btn-danger" (click)="removeRow(i, 'projectLocation')"
+                          ><i class="bi bi-trash3-fill"></i
+                        ></button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="col-12">
+              <div class="d-flex justify-content-between mb-2">
+                <div class="row">
+                  <div class="col-10">
+                    <p class="fs-5 fw-bold"
+                      >Objective And Outcomes (Describe the outcomes to be achieved to fulfil the goal and the objective of the outcome)</p
+                    >
+                  </div>
+                </div>
+                <div>
+                  <button type="button" class="btn btn-primary" (click)="addMoreRows('objOutcomes')"
+                    ><i class="bi bi-plus-circle-fill"></i
+                  ></button>
+                </div>
+              </div>
+              <div class="table-responsive">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col" rowspan="3">Objective </th>
+                      <th scope="col">Outcomes </th>
+                      <th scope="col" class="text-end">Action </th>
+                    </tr>
+                  </thead>
+                  <tbody formArrayName="objOutcomes">
+                    <ng-container *ngFor="let row of objOutcomesArr.controls; let i = index" [formGroupName]="i">
+                      <tr>
+                        <td rowspan="3">objective{{ i + 1 }}</td>
+                        <td><input class="form-control" formControlName="outcome1" type="text" placeholder="Enter outcome 1" /></td>
+                        <td rowspan="3" class="text-end">
+                          <button type="button" class="btn btn-danger" (click)="removeRow(i, 'objOutcomes')"
+                            ><i class="bi bi-trash3-fill"></i
+                          ></button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><input class="form-control" formControlName="outcome2" type="text" placeholder="Enter outcome 2" /></td>
+                      </tr>
+                      <tr>
+                        <td><input class="form-control" formControlName="outcome3" type="text" placeholder="Enter outcome 3" /></td>
+                      </tr>
+                    </ng-container>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="d-flex justify-content-end">
+        <button type="button" mat-raised-button color="primary" matStepperNext>Next</button>
+      </div>
+    </mat-step>
+    <!-- project details end -->
+
+    <!-- documnet checklist step start -->
+    <mat-step [stepControl]="assessmentReportForm" label="Assessments">
+      <div formGroupName="assessmentReport">
+        <div class="card mt-2">
+          <div class="card-body">
+            <div class="d-flex justify-content-center">
+              <p class="fs-4 fw-bold">Assessments and Other Details</p>
+            </div>
+            <div class="table-responsive">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col" class="minWidthSr">Sr No.</th>
+                    <th scope="col">Assessments Type</th>
+                    <th scope="col">Remark</th>
+                    <th scope="col" class="maxWidthFile">Choose File (only in PDF)</th>
+                    <th scope="col" class="text-end">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">1</th>
+                    <td>Hazard Assessment</td>
+                    <td>
+                      <input
+                        type="text"
+                        class="form-control"
+                        formControlName="hazardText"
+                        id="hazardText"
+                        placeholder="Enter your remark"
+                      />
+                    </td>
+                    <td class="maxWidthFile">
+                      <input
+                        class="form-control"
+                        formControlName="hazardAsseessment"
+                        (change)="onFileSelected($event, 0)"
+                        type="file"
+                        id="hazardAsseessment"
+                    /></td>
+                    <td>
+                      <div class="d-flex justify-content-end">
+                        <button type="button" class="btn btn-primary">Upload</button>
+                        <button type="button" class="btn btn-danger ms-2"><i class="bi bi-trash3-fill"></i></button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">2</th>
+                    <td>Vulnerability and Capacities Assessment</td>
+                    <td>
+                      <input
+                        type="text"
+                        class="form-control"
+                        formControlName="vulnerabilityText"
+                        id="vulnerabilityText"
+                        placeholder="Enter your remark"
+                      />
+                    </td>
+                    <td class="maxWidthFile">
+                      <input
+                        class="form-control"
+                        formControlName="vulnerabilityAsseessment"
+                        type="file"
+                        id="vulnerabilityAsseessment"
+                        (change)="onFileSelected($event, 1)"
+                      />
+                    </td>
+                    <td>
+                      <div class="d-flex justify-content-end">
+                        <button type="button" class="btn btn-primary">Upload</button>
+                        <button type="button" class="btn btn-danger ms-2"><i class="bi bi-trash3-fill"></i></button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">3</th>
+                    <td>Risk Assessment</td>
+                    <td>
+                      <input type="text" class="form-control" formControlName="riskText" id="riskText" placeholder="Enter your remark" />
+                    </td>
+                    <td class="maxWidthFile">
+                      <input
+                        class="form-control"
+                        formControlName="riskAsseessment"
+                        type="file"
+                        id="riskAsseessment"
+                        (change)="onFileSelected($event, 2)"
+                      />
+                    </td>
+                    <td>
+                      <div class="d-flex justify-content-end">
+                        <button type="button" class="btn btn-primary">Upload</button>
+                        <button type="button" class="btn btn-danger ms-2"><i class="bi bi-trash3-fill"></i></button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">4</th>
+                    <td>Stakeholder Analysis</td>
+                    <td>
+                      <input
+                        type="text"
+                        class="form-control"
+                        formControlName="stakeholderText"
+                        id="stakeholderText"
+                        placeholder="Enter your remark"
+                      />
+                    </td>
+                    <td class="maxWidthFile">
+                      <input
+                        class="form-control"
+                        formControlName="stakeholderAsseessment"
+                        type="file"
+                        id="stakeholderAsseessment"
+                        (change)="onFileSelected($event, 3)"
+                      />
+                    </td>
+                    <td>
+                      <div class="d-flex justify-content-end">
+                        <button type="button" class="btn btn-primary">Upload</button>
+                        <button type="button" class="btn btn-danger ms-2"><i class="bi bi-trash3-fill"></i></button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">6</th>
+                    <td>Mitigation Strategy</td>
+                    <td>
+                      <input
+                        type="text"
+                        class="form-control"
+                        formControlName="mitigationText"
+                        id="mitigationText"
+                        placeholder="Enter your remark"
+                      />
+                    </td>
+                    <td class="maxWidthFile">
+                      <input
+                        class="form-control"
+                        formControlName="mitigationAsseessment"
+                        type="file"
+                        id="mitigationAsseessment"
+                        (change)="onFileSelected($event, 4)"
+                      />
+                    </td>
+                    <td>
+                      <div class="d-flex justify-content-end">
+                        <button type="button" class="btn btn-primary">Upload</button>
+                        <button type="button" class="btn btn-danger ms-2"><i class="bi bi-trash3-fill"></i></button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">7</th>
+                    <td>Cost-Benifit Analysis</td>
+                    <td>
+                      <input
+                        type="text"
+                        class="form-control"
+                        formControlName="costBenifitText"
+                        id="costBenifitText"
+                        placeholder="Enter your remark"
+                      />
+                    </td>
+                    <td class="maxWidthFile">
+                      <input
+                        class="form-control"
+                        formControlName="costBenifitAsseessment"
+                        type="file"
+                        id="costBenifitAsseessment"
+                        (change)="onFileSelected($event, 5)"
+                      />
+                    </td>
+                    <td>
+                      <div class="d-flex justify-content-end">
+                        <button type="button" class="btn btn-primary">Upload</button>
+                        <button type="button" class="btn btn-danger ms-2"><i class="bi bi-trash3-fill"></i></button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">8</th>
+                    <td>Planned Activities</td>
+                    <td>
+                      <input
+                        type="text"
+                        class="form-control"
+                        formControlName="plannedText"
+                        id="plannedText"
+                        placeholder="Enter your remark"
+                      />
+                    </td>
+                    <td class="maxWidthFile">
+                      <input
+                        class="form-control"
+                        formControlName="plannedAsseessment"
+                        type="file"
+                        id="plannedAsseessment"
+                        (change)="onFileSelected($event, 6)"
+                      />
+                    </td>
+                    <td>
+                      <div class="d-flex justify-content-end">
+                        <button type="button" class="btn btn-primary">Upload</button>
+                        <button type="button" class="btn btn-danger ms-2"><i class="bi bi-trash3-fill"></i></button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">9</th>
+                    <td>Implementation Plan</td>
+                    <td>
+                      <input
+                        type="text"
+                        class="form-control"
+                        formControlName="implementationText"
+                        id="implementationText"
+                        placeholder="Enter your remark"
+                      />
+                    </td>
+                    <td class="maxWidthFile">
+                      <input
+                        class="form-control"
+                        formControlName="implementationAsseessment"
+                        type="file"
+                        id="implementationAsseessment"
+                        (change)="onFileSelected($event, 7)"
+                      />
+                    </td>
+                    <td>
+                      <div class="d-flex justify-content-end">
+                        <button type="button" class="btn btn-primary">Upload</button>
+                        <button type="button" class="btn btn-danger ms-2"><i class="bi bi-trash3-fill"></i></button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">10</th>
+                    <td>Budget for Project Activites</td>
+                    <td>
+                      <input
+                        type="text"
+                        class="form-control"
+                        formControlName="budgetText"
+                        id="budgetText"
+                        placeholder="Enter your remark"
+                      />
+                    </td>
+                    <td class="maxWidthFile">
+                      <input
+                        class="form-control"
+                        formControlName="budgetAsseessment"
+                        type="file"
+                        id="budgetAsseessment"
+                        (change)="onFileSelected($event, 8)"
+                      />
+                    </td>
+                    <td>
+                      <div class="d-flex justify-content-end">
+                        <button type="button" class="btn btn-primary">Upload</button>
+                        <button type="button" class="btn btn-danger ms-2"><i class="bi bi-trash3-fill"></i></button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">11</th>
+                    <td>Reporting and Monitoring Arrangement</td>
+                    <td>
+                      <input
+                        type="text"
+                        class="form-control"
+                        formControlName="reportingText"
+                        id="reportingText"
+                        placeholder="Enter your remark"
+                      />
+                    </td>
+                    <td class="maxWidthFile">
+                      <input
+                        class="form-control"
+                        formControlName="reportingAsseessment"
+                        type="file"
+                        id="reportingAsseessment"
+                        (change)="onFileSelected($event, 8)"
+                      />
+                    </td>
+                    <td>
+                      <div class="d-flex justify-content-end">
+                        <button type="button" class="btn btn-primary">Upload</button>
+                        <button type="button" class="btn btn-danger ms-2"><i class="bi bi-trash3-fill"></i></button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">12</th>
+                    <td>Conflict of Interest</td>
+                    <td>
+                      <input
+                        type="text"
+                        class="form-control"
+                        formControlName="conflictText"
+                        id="conflictText"
+                        placeholder="Enter your remark"
+                      />
+                    </td>
+                    <td class="maxWidthFile">
+                      <input
+                        class="form-control"
+                        formControlName="conflictAsseessment"
+                        type="file"
+                        id="conflictAsseessment"
+                        (change)="onFileSelected($event, 8)"
+                      />
+                    </td>
+                    <td>
+                      <div class="d-flex justify-content-end">
+                        <button type="button" class="btn btn-primary">Upload</button>
+                        <button type="button" class="btn btn-danger ms-2"><i class="bi bi-trash3-fill"></i></button>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="d-flex justify-content-end">
+        <button mat-raised-button color="primary" class="me-2" matStepperPrevious>Back</button>
+        <button mat-raised-button color="primary" type="button" matStepperNext>Next</button>
+      </div>
+    </mat-step>
+    <!-- documnet checklist step end-->
+
+    <!-- project breakdown start -->
+    <mat-step [stepControl]="projectCostForm" label="Project Budget">
+      <div class="row" formGroupName="projectCost">
+        <div class="col-12">
+          <div class="d-flex justify-content-between mb-2">
+            <p class="fs-5 fw-bold">Project Budget / Cost Overview</p>
+
+            <button type="button" class="btn btn-primary" (click)="addMoreRows('breakDownCost')"
+              ><i class="bi bi-plus-circle-fill"></i
+            ></button>
+          </div>
+          <div class="table-responsive">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th scope="col" class="minWidthSr">Sr No.</th>
+                  <th scope="col" class="minWidthInput">Objective/Activity</th>
+                  <th scope="col" class="maxWidthInput minWidthInputNum">Amount (INR)</th>
+                  <th scope="col" class="text-end">Action</th>
+                </tr>
+              </thead>
+              <tbody formArrayName="breakDownCost">
+                <tr *ngFor="let row of breakDownCostArr.controls; let i = index" [formGroupName]="i">
+                  <td>
+                    <span>{{ i + 1 }}</span>
+                  </td>
+                  <td class="minWidthInput">
+                    <input type="text" class="form-control" formControlName="objectiveActivity" placeholder="Enter Objective/Activitiy" />
+                  </td>
+                  <td class="maxWidthInput minWidthInputNum">
+                    <input type="number" class="form-control" formControlName="amount" placeholder="Enter amount" />
+                  </td>
+
+                  <td class="text-end">
+                    <button type="button" class="btn btn-danger" (click)="removeRow(i, 'breakDownCost')"
+                      ><i class="bi bi-trash3-fill"></i
+                    ></button>
+                  </td>
+                </tr>
+              </tbody>
+              <tbody>
+                <tr>
+                  <td colspan="2">Grand Total</td>
+                  <td colspan="2">
+                    <input type="text" class="form-control" formControlName="grandToatl" placeholder="Enter Grand Total" />
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="2">Ineligible Cost</td>
+                  <td colspan="2">
+                    <input type="text" class="form-control" formControlName="ineligibleCost" placeholder="Enter Ineligible cost" />
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="2">Contribution form other Sources</td>
+                  <td colspan="2">
+                    <input
+                      type="text"
+                      class="form-control"
+                      formControlName="contribution"
+                      placeholder="Enter contribution form other sources"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="2">Total eligible project cost</td>
+                  <td colspan="2">
+                    <input type="text" class="form-control" formControlName="totalElidible" placeholder="Enter total elidible cost" />
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="2">Fund requested form Mitigation Fund</td>
+                  <td colspan="2">
+                    <input
+                      type="text"
+                      class="form-control"
+                      formControlName="requestFund"
+                      placeholder="Enter fund requested form mitigation fund"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="4">How the cost been determined ? (attach cost determination report) <span class="text-danger">(only in PDF)</span></td>
+                </tr>
+                <tr>
+                  <td colspan="2">
+                    <div class="d-flex justify-content-between">
+                      <div class="form-check">
+                        <input
+                          class="form-check-input"
+                          type="radio"
+                          formControlName="costDetermined"
+                          value="Detailed cost estimate"
+                          id="category1"
+                          (change)="onRadioChange('category1')"
+                        />
+                        <label class="form-check-label" for="category1"> Detailed cost estimate </label>
+                      </div>
+                      <div class="form-check">
+                        <input
+                          class="form-check-input"
+                          type="radio"
+                          formControlName="costDetermined"
+                          value="Tender Quotations"
+                          id="category2"
+                          (change)="onRadioChange('category2')"
+                        />
+                        <label class="form-check-label" for="category2"> Tender Quotations </label>
+                      </div>
+                      <div class="form-check">
+                        <input
+                          class="form-check-input"
+                          type="radio"
+                          formControlName="costDetermined"
+                          value="Benchmark Rates"
+                          id="category3"
+                          (change)="onRadioChange('category3')"
+                        />
+                        <label class="form-check-label" for="category3"> Benchmark Rates </label>
+                      </div>
+                      <div class="form-check">
+                        <input
+                          class="form-check-input"
+                          type="radio"
+                          formControlName="costDetermined"
+                          value="Other"
+                          id="category4"
+                          (change)="onRadioChange('category4')"
+                        />
+                        <label class="form-check-label" for="category4"> Other </label>
+                      </div>
+                    </div>
+                  </td>
+                  <td colspan="2">
+                    <input
+                      *ngIf="selectedCategory === 'category1'"
+                      class="form-control"
+                      type="file"
+                      (change)="onFileChange($event, 'category1')"
+                    />
+                    <input
+                      *ngIf="selectedCategory === 'category2'"
+                      class="form-control"
+                      type="file"
+                      (change)="onFileChange($event, 'category2')"
+                    />
+                    <input
+                      *ngIf="selectedCategory === 'category3'"
+                      class="form-control"
+                      type="file"
+                      (change)="onFileChange($event, 'category3')"
+                    />
+                    <input
+                      *ngIf="selectedCategory === 'category4'"
+                      class="form-control"
+                      type="file"
+                      (change)="onFileChange($event, 'category4')"
+                    />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="d-flex justify-content-end">
+          <button mat-raised-button color="primary" class="me-2" matStepperPrevious>Back</button>
+          <button type="button" mat-raised-button color="primary" matStepperNext>Next</button>
+        </div>
+      </div>
+    </mat-step>
+    <!-- project breakdown end -->
+
+    <!-- monitoring and evaluation start -->
+    <mat-step [stepControl]="MonitoringForm" label="Monitoring And Evaluation">
+      <div class="row" formGroupName="Monitoring">
+        <div class="col-12">
+          <div class="d-flex justify-content-between mb-2">
+            <p class="fs-5 fw-bold">Monitoring And Evaluation (M&E) Template</p>
+
+            <button type="button" class="btn btn-primary" (click)="addMoreRows('monitoring')"
+              ><i class="bi bi-plus-circle-fill"></i
+            ></button>
+          </div>
+          <div class="table-responsive">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th scope="col" class="minWidthSr">Sr No.</th>
+                  <th scope="col">Indicator</th>
+                  <th scope="col">Description</th>
+                  <th scope="col">Output</th>
+                  <th scope="col" class="text-end">Action</th>
+                </tr>
+              </thead>
+              <tbody formArrayName="monitoringInd">
+                <tr *ngFor="let row of monitoringIndArr.controls; let i = index" [formGroupName]="i">
+                  <td>
+                    <span>{{ i + 1 }}</span>
+                  </td>
+                  <td>
+                    <input type="text" class="form-control" formControlName="indicators" placeholder="Enter Indicator" />
+                  </td>
+                  <td>
+                    <input type="text" class="form-control" formControlName="description" placeholder="Enter Description" />
+                  </td>
+                  <td>
+                    <input type="text" class="form-control" formControlName="output" placeholder="Enter output" />
+                  </td>
+
+                  <td class="text-end">
+                    <button type="button" class="btn btn-danger" (click)="removeRow(i, 'monitoring')"
+                      ><i class="bi bi-trash3-fill"></i
+                    ></button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="d-flex justify-content-end">
+          <button mat-raised-button color="primary" class="me-2" matStepperPrevious>Back</button>
+          <button type="button" mat-raised-button color="primary" matStepperNext>Next</button>
+        </div>
+      </div>
+    </mat-step>
+    <!-- monitoring and evaluation end -->
+
+    <!-- attached document checklist start -->
+    <mat-step [stepControl]="AttachedDocForm" label="Attached Document CheckList">
+      <div class="row" formGroupName="AttachedDoc">
+        <div class="col-12">
+          <div class="d-flex justify-content-center mb-2">
+            <p class="fs-5 fw-bold">Attached Document Checklist</p>
+          </div>
+          <div class="table-responsive">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th scope="col" class="minWidthSr">Sr No.</th>
+                  <th scope="col" class="minWidthInput">Document</th>
+                  <th scope="col" class="text-center">Attached</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td> 1 </td>
+                  <td class="minWidthInput"> Hazard Assesment Report </td>
+                  <td>
+                    <div class="d-flex justify-content-around">
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" formControlName="hazardReport" value="Yes" id="hazardReportyes" />
+                        <label class="form-check-label" for="hazardReportyes"> Yes </label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" formControlName="hazardReport" value="No" id="hazardReportno" />
+                        <label class="form-check-label" for="hazardReportno"> No </label>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td> 2 (a) </td>
+                  <td class="minWidthInput"> Vulnerability Assessment Report </td>
+                  <td>
+                    <div class="d-flex justify-content-around">
+                      <div class="form-check">
+                        <input
+                          class="form-check-input"
+                          type="radio"
+                          formControlName="vulnerablitliyReport"
+                          value="Yes"
+                          id="vulnerablitliyReportyes"
+                        />
+                        <label class="form-check-label" for="vulnerablitliyReportyes"> Yes </label>
+                      </div>
+                      <div class="form-check">
+                        <input
+                          class="form-check-input"
+                          type="radio"
+                          formControlName="vulnerablitliyReport"
+                          value="No"
+                          id="vulnerablitliyReportno"
+                        />
+                        <label class="form-check-label" for="vulnerablitliyReportno"> No </label>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td> 2 (b) </td>
+                  <td class="minWidthInput"> Community Interaction Report </td>
+                  <td>
+                    <div class="d-flex justify-content-around">
+                      <div class="form-check">
+                        <input
+                          class="form-check-input"
+                          type="radio"
+                          formControlName="CommunityReport"
+                          value="Yes"
+                          id="CommunityReportyes"
+                        />
+                        <label class="form-check-label" for="CommunityReportyes"> Yes </label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" formControlName="CommunityReport" value="No" id="CommunityReportno" />
+                        <label class="form-check-label" for="CommunityReportno"> No </label>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td> 2 (c) </td>
+                  <td class="minWidthInput"> Sample Questionnaire </td>
+                  <td>
+                    <div class="d-flex justify-content-around">
+                      <div class="form-check">
+                        <input
+                          class="form-check-input"
+                          type="radio"
+                          formControlName="questionnaireReport"
+                          value="Yes"
+                          id="questionnaireReportyes"
+                        />
+                        <label class="form-check-label" for="questionnaireReportyes"> Yes </label>
+                      </div>
+                      <div class="form-check">
+                        <input
+                          class="form-check-input"
+                          type="radio"
+                          formControlName="questionnaireReport"
+                          value="No"
+                          id="questionnaireReportno"
+                        />
+                        <label class="form-check-label" for="questionnaireReportno"> No </label>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td> 3 (a) </td>
+                  <td class="minWidthInput"> Risk Assessment Report </td>
+                  <td>
+                    <div class="d-flex justify-content-around">
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" formControlName="riskReport" value="Yes" id="riskReportyes" />
+                        <label class="form-check-label" for="riskReportyes"> Yes </label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" formControlName="riskReport" value="No" id="riskReportno" />
+                        <label class="form-check-label" for="riskReportno"> No </label>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td> 3 (b) </td>
+                  <td class="minWidthInput"> Option Analysis </td>
+                  <td>
+                    <div class="d-flex justify-content-around">
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" formControlName="optionReport" value="Yes" id="optionReportyes" />
+                        <label class="form-check-label" for="optionReportyes"> Yes </label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" formControlName="optionReport" value="No" id="optionReportno" />
+                        <label class="form-check-label" for="optionReportno"> No </label>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td> 3 (c) </td>
+                  <td class="minWidthInput"> Cost-Benifit Analysis </td>
+                  <td>
+                    <div class="d-flex justify-content-around">
+                      <div class="form-check">
+                        <input
+                          class="form-check-input"
+                          type="radio"
+                          formControlName="costBenfitReport"
+                          value="Yes"
+                          id="costBenfitReportyes"
+                        />
+                        <label class="form-check-label" for="costBenfitReportyes"> Yes </label>
+                      </div>
+                      <div class="form-check">
+                        <input
+                          class="form-check-input"
+                          type="radio"
+                          formControlName="costBenfitReport"
+                          value="No"
+                          id="costBenfitReportno"
+                        />
+                        <label class="form-check-label" for="costBenfitReportno"> No </label>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td> 4 </td>
+                  <td class="minWidthInput"> Preliminary Design for Infrastructure Projects </td>
+                  <td>
+                    <div class="d-flex justify-content-around">
+                      <div class="form-check">
+                        <input
+                          class="form-check-input"
+                          type="radio"
+                          formControlName="preliminaryReport"
+                          value="Yes"
+                          id="preliminaryReportyes"
+                        />
+                        <label class="form-check-label" for="preliminaryReportyes"> Yes </label>
+                      </div>
+                      <div class="form-check">
+                        <input
+                          class="form-check-input"
+                          type="radio"
+                          formControlName="preliminaryReport"
+                          value="No"
+                          id="preliminaryReportno"
+                        />
+                        <label class="form-check-label" for="preliminaryReportno"> No </label>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td> 5 </td>
+                  <td class="minWidthInput"> Project Plan </td>
+                  <td>
+                    <div class="d-flex justify-content-around">
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" formControlName="projectReport" value="Yes" id="projectReportyes" />
+                        <label class="form-check-label" for="projectReportyes"> Yes </label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" formControlName="projectReport" value="No" id="projectReportno" />
+                        <label class="form-check-label" for="projectReportno"> No </label>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td> 6 (a) </td>
+                  <td class="minWidthInput"> Cost Determination Report </td>
+                  <td>
+                    <div class="d-flex justify-content-around">
+                      <div class="form-check">
+                        <input
+                          class="form-check-input"
+                          type="radio"
+                          formControlName="costDeterReport"
+                          value="Yes"
+                          id="costDeterReportyes"
+                        />
+                        <label class="form-check-label" for="costDeterReportyes"> Yes </label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" formControlName="costDeterReport" value="No" id="costDeterReportno" />
+                        <label class="form-check-label" for="costDeterReportno"> No </label>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td> 6 (b) </td>
+                  <td class="minWidthInput"> List of all reference used for research data </td>
+                  <td>
+                    <div class="d-flex justify-content-around">
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" formControlName="researchReport" value="Yes" id="researchReportyes" />
+                        <label class="form-check-label" for="researchReportyes"> Yes </label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" formControlName="researchReport" value="No" id="researchReportno" />
+                        <label class="form-check-label" for="researchReportno"> No </label>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-end">
+          <button mat-raised-button color="primary" class="me-2" matStepperPrevious>Back</button>
+          <button type="button" mat-raised-button color="primary" matStepperNext (click)="gatherPreviewData()">Preview</button>
+        </div>
+      </div>
+    </mat-step>
+    <!-- attached document checklist end -->
+
+    <!-- preview step start -->
+    <mat-step label="Preview">
+      <div class="card mt-2">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-12">
+              <p class="fs-4 fw-bold">Project Details</p>
+            </div>
+            <div class="col-12 col-md-6">
+              <div class="mb-3">
+                <label for="projectTitle" class="form-label">Project Title</label>
+                <p class="form-control">{{ previewData?.projectDetails.projectTitle }}</p>
+              </div>
+            </div>
+            <div class="col-12 col-md-6">
+              <div class="mb-3">
+                <label for="typesOfProject" class="form-label">Types of Project</label>
+                <p class="form-control">{{ previewData?.projectDetails.typesOfProject }}</p>
+              </div>
+            </div>
+            <div class="col-12 md-6">
+              <div class="mb-3">
+                <label for="totalEstimatedBud" class="form-label">Total Estimated Budget <span class="fw-bold">(In INR)</span></label>
+                <p class="form-control">{{ previewData?.projectDetails.totalEstimatedBud }}</p>
+              </div>
+            </div>
+            <div class="col-12 col-md-6">
+              <div class="mb-3">
+                <label for="totalDuration" class="form-label">Duration of the Project <span class="fw-bold">(In Months)</span></label>
+                <p class="form-control">{{ previewData?.projectDetails.totalDuration }}</p>
+              </div>
+            </div>
+            <div>
+              <p class="fs-5 fw-bold">Project Description</p>
+            </div>
+            <div class="col-12">
+              <div class="mb-3">
+                <label for="summaryProject" class="form-label"
+                  >Summary of the Project (Summarize the Project Scope, Rationale And Activities)</label
+                >
+                <p class="form-control">{{ previewData?.projectDetails.summaryProject }}</p>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="mb-3">
+                <label for="goalsDpr" class="form-label">Goals (Describe The Overall Goals That The Project Proposes To Achieve)</label>
+                <p class="form-control">{{ previewData?.projectDetails.goalsDpr }}</p>
+              </div>
+            </div>
+            <div class="col-12 mb-2">
+              <div class="d-flex justify-content-start mb-2">
+                <p class="fs-5 fw-bold">Project Location</p>
+              </div>
+              <div class="table-responsive">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th scope="col" class="minWidthSr">Sr No.</th>
+                      <th scope="col">Village</th>
+                      <th scope="col">Block</th>
+                      <th scope="col">District</th>
+                      <th scope="col">State</th>
+                      <th scope="col">Geographical Coordinates</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let row of projectLocationArr.controls; let i = index">
+                      <td>
+                        <span>{{ i + 1 }}</span>
+                      </td>
+                      <td>
+                        <p class="form-control">{{ previewData?.projectDetails.projectLocation[i].villageDpr }}</p>
+                      </td>
+                      <td>
+                        <p class="form-control">{{ previewData?.projectDetails.projectLocation[i].blockDpr }}</p>
+                      </td>
+                      <td>
+                        <p class="form-control">{{ previewData?.projectDetails.projectLocation[i].districtDpr }}</p>
+                      </td>
+                      <td>
+                        <p class="form-control">{{ previewData?.projectDetails.projectLocation[i].stateDpr }}</p>
+                      </td>
+                      <td>
+                        <p class="form-control">{{ previewData?.projectDetails.projectLocation[i].geoCordDpr }}</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="d-flex justify-content-between mb-2">
+                <div class="row">
+                  <div class="col-10">
+                    <p class="fs-5 fw-bold"
+                      >Objective And Outcomes (Describe the outcomes to be achieved to fulfil the goal and the objective of the outcome)</p
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="table-responsive">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col" rowspan="3">Objective </th>
+                      <th scope="col">Outcomes </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <ng-container *ngFor="let row of objOutcomesArr.controls; let i = index">
+                      <tr>
+                        <td rowspan="3">objective{{ i + 1 }}</td>
+                        <td>
+                          <p class="form-control">{{ previewData?.projectDetails.objOutcomes[i].outcome1 }}</p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <p class="form-control">{{ previewData?.projectDetails.objOutcomes[i].outcome2 }}</p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <p class="form-control">{{ previewData?.projectDetails.objOutcomes[i].outcome3 }}</p>
+                        </td>
+                      </tr>
+                    </ng-container>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- project breakdown start -->
+          <div class="row">
+            <div class="col-12">
+              <div class="d-flex justify-content-between mb-2">
+                <p class="fs-5 fw-bold">Project Budget / Cost Overview</p>
+              </div>
+              <div class="table-responsive">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th scope="col" class="minWidthSr">Sr No.</th>
+                      <th scope="col" class="minWidthInput">Objective/Activity</th>
+                      <th scope="col" class="maxWidthInput minWidthInputNum">Amount</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let row of breakDownCostArr.controls; let i = index">
+                      <td>
+                        <span>{{ i + 1 }}</span>
+                      </td>
+                      <td class="minWidthInput">
+                        <p class="form-control">{{ previewData?.projectCost.breakDownCost[i].objectiveActivity }}</p>
+                      </td>
+                      <td class="maxWidthInput minWidthInputNum">
+                        <p class="form-control">{{ previewData?.projectCost.breakDownCost[i].amount }}</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                  <tbody>
+                    <tr>
+                      <td colspan="2">Grand Total</td>
+                      <td colspan="2">
+                        <p class="form-control">{{ previewData?.projectCost.grandToatl }}</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Ineligible Cost</td>
+                      <td colspan="2">
+                        <p class="form-control">{{ previewData?.projectCost.ineligibleCost }}</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Contribution form other Sources</td>
+                      <td colspan="2">
+                        <p class="form-control">{{ previewData?.projectCost.contribution }}</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Total eligible project cost</td>
+                      <td colspan="2">
+                        <p class="form-control">{{ previewData?.projectCost.totalElidible }}</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">Fund requested form Mitigation Fund</td>
+                      <td colspan="2">
+                        <p class="form-control">{{ previewData?.projectCost.requestFund }}</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="4">How the cost been determined ? (attach cost determination report)</td>
+                    </tr>
+                    <!-- <tr>
+                      <td colspan="2">
+                        <div class="d-flex justify-content-between">
+                          <div class="form-check">
+                            <input
+                              class="form-check-input"
+                              type="radio"
+                              formControlName="costDetermined"
+                              value="Detailed cost estimate"
+                              id="category1"
+                              (change)="onRadioChange('category1')"
+                            />
+                            <label class="form-check-label" for="category1"> Detailed cost estimate </label>
+                          </div>
+                          <div class="form-check">
+                            <input
+                              class="form-check-input"
+                              type="radio"
+                              formControlName="costDetermined"
+                              value="Tender Quotations"
+                              id="category2"
+                              (change)="onRadioChange('category2')"
+                            />
+                            <label class="form-check-label" for="category2"> Tender Quotations </label>
+                          </div>
+                          <div class="form-check">
+                            <input
+                              class="form-check-input"
+                              type="radio"
+                              formControlName="costDetermined"
+                              value="Benchmark Rates"
+                              id="category3"
+                              (change)="onRadioChange('category3')"
+                            />
+                            <label class="form-check-label" for="category3"> Benchmark Rates </label>
+                          </div>
+                          <div class="form-check">
+                            <input
+                              class="form-check-input"
+                              type="radio"
+                              formControlName="costDetermined"
+                              value="Other"
+                              id="category4"
+                              (change)="onRadioChange('category4')"
+                            />
+                            <label class="form-check-label" for="category4"> Other </label>
+                          </div>
+                        </div>
+                      </td>
+                      <td colspan="2">
+                        <input
+                          *ngIf="selectedCategory === 'category1'"
+                          class="form-control"
+                          type="file"
+                          (change)="onFileChange($event, 'category1')"
+                        />
+                        <input
+                          *ngIf="selectedCategory === 'category2'"
+                          class="form-control"
+                          type="file"
+                          (change)="onFileChange($event, 'category2')"
+                        />
+                        <input
+                          *ngIf="selectedCategory === 'category3'"
+                          class="form-control"
+                          type="file"
+                          (change)="onFileChange($event, 'category3')"
+                        />
+                        <input
+                          *ngIf="selectedCategory === 'category4'"
+                          class="form-control"
+                          type="file"
+                          (change)="onFileChange($event, 'category4')"
+                        />
+                      </td>
+                    </tr> -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <!-- project breakdown end -->
+
+          <!-- monitoring start -->
+          <div class="row">
+            <div class="col-12">
+              <div class="d-flex justify-content-between mb-2">
+                <p class="fs-5 fw-bold">Monitoring And Evaluation (M&E) Template</p>
+              </div>
+              <div class="table-responsive">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th scope="col" class="minWidthSr">Sr No.</th>
+                      <th scope="col">Indicator</th>
+                      <th scope="col">Description</th>
+                      <th scope="col">Output</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let row of monitoringIndArr.controls; let i = index">
+                      <td>
+                        <span>{{ i + 1 }}</span>
+                      </td>
+                      <td>
+                        <p class="form-control">{{ previewData?.Monitoring.monitoringInd[i].indicators }}</p>
+                      </td>
+                      <td>
+                        <p class="form-control">{{ previewData?.Monitoring.monitoringInd[i].description }}</p>
+                      </td>
+                      <td>
+                        <p class="form-control">{{ previewData?.Monitoring.monitoringInd[i].output }}</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <!-- monitoring end -->
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-end">
+        <button mat-raised-button color="primary" class="me-2" (click)="goToStep(stepper, 0)">Edit</button>
+        <button mat-raised-button color="primary" type="submit" matStepperNext>Submit</button>
+      </div>
+    </mat-step>
+    <!-- preview step end-->
+  </mat-stepper>
+</form>

@@ -1,0 +1,1319 @@
+<form [formGroup]="PPR" (ngSubmit)="HandleSubmit()">
+  <mat-stepper labelPosition="bottom" [linear]="isLinear" #stepper>
+    <!-- applicant details start -->
+    <mat-step [stepControl]="applicantDetailsform">
+      <div formGroupName="applicantDetails">
+        <ng-template matStepLabel>Applicants Status of Organisation</ng-template>
+        <div class="card mt-2">
+          <div class="card-body">
+            <div class="d-flex justify-content-center">
+              <p class="fs-4 fw-bold">Applicant Details</p>
+            </div>
+            <div class="row">
+              <div class="col-12 col-md-6">
+                <div class="mb-3">
+                  <label for="applicantDepartment" class="form-label">Name of the Applicant Department/Organisation</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="applicantDepartmentName"
+                    id="applicantDepartment"
+                    placeholder="Enter your Project title"
+                  />
+                </div>
+              </div>
+              <div class="col-12 col-md-6">
+                <div class="mb-3">
+                  <label for="typesOfOrg" class="form-label">Types of Organisation</label>
+                  <input
+                    class="form-control"
+                    formControlName="typeOrg"
+                    list="projectOptions"
+                    id="typesOfOrg"
+                    placeholder="Choose your Project Type"
+                  />
+                  <datalist id="projectOptions">
+                    <option value="Government Department"> </option>
+                    <option value="PSU"> </option>
+                    <option value="Academic/Research Institutions"> </option>
+                    <option value="Non-Governmental Organisation"> </option>
+                    <option value="Other"> </option>
+                  </datalist>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="mb-3">
+                  <label for="addressApplicant" class="form-label">Address</label>
+                  <textarea formControlName="addressApplicant" class="form-control" id="addressApplicant" rows="3"></textarea>
+                </div>
+              </div>
+              <div class="col-12 col-md-6">
+                <div class="mb-3">
+                  <label for="stateApplicant" class="form-label">State</label>
+                  <input
+                    class="form-control"
+                    formControlName="stateApplicant"
+                    list="stateOptions"
+                    id="stateApplicant"
+                    placeholder="Choose your State"
+                  />
+                  <datalist id="stateOptions">
+                    <option value="UttarPradesh"></option>
+                    <option value="Bihar"></option>
+                    <option value="Other"></option>
+                  </datalist>
+                </div>
+              </div>
+              <div class="col-12 col-md-6">
+                <div class="mb-3">
+                  <label for="districtApplicant" class="form-label">District</label>
+                  <input
+                    class="form-control"
+                    formControlName="districtApplicant"
+                    list="districtOptions"
+                    id="districtApplicant"
+                    placeholder="Choose your District"
+                  />
+                  <datalist id="districtOptions">
+                    <option value="UttarPradesh"></option>
+                    <option value="Bihar"></option>
+                    <option value="Other"></option>
+                  </datalist>
+                </div>
+              </div>
+              <div class="col-12 col-md-6">
+                <div class="mb-3">
+                  <label for="cityApplicant" class="form-label">City</label>
+                  <input
+                    class="form-control"
+                    formControlName="cityApplicant"
+                    type="text"
+                    id="cityApplicant"
+                    placeholder="Enter your City name"
+                  />
+                </div>
+              </div>
+              <div class="col-12 col-md-6">
+                <div class="mb-3">
+                  <label for="pincodeApplicant" class="form-label">Pin-Code</label>
+                  <input
+                    class="form-control"
+                    formControlName="pincodeApplicant"
+                    type="number"
+                    id="pincodeApplicant"
+                    placeholder="Enter your PinCode"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <div class="d-flex justify-content-between mb-2">
+                  <p class="fs-5 fw-bold">Project-Point of Contact</p>
+                  <button class="btn btn-primary" type="button" (click)="addMoreRows('projectPointContact')"
+                    ><i class="bi bi-plus-circle-fill"></i
+                  ></button>
+                </div>
+                <div class="card">
+                  <div class="card-body">
+                    <div formArrayName="projectPointContact">
+                      <div class="row" *ngFor="let row of projectPointContact.controls; let i = index" [formGroupName]="i">
+                        <div class="col-12 col-md-6">
+                          <div class="mb-3">
+                            <label for="nameProjectPoint" class="form-label">Name</label>
+                            <input
+                              class="form-control"
+                              type="text"
+                              formControlName="nameProjectPoint"
+                              id="nameProjectPoint"
+                              placeholder="Enter your Name"
+                            />
+                          </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                          <div class="mb-3">
+                            <label for="emailProjectPoint" class="form-label">Email Address</label>
+                            <input
+                              class="form-control"
+                              type="email"
+                              formControlName="emailrojectPoint"
+                              id="emailProjectPoint"
+                              placeholder="Enter your Email"
+                            />
+                          </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                          <div class="mb-3">
+                            <label for="desgProjectPoint" class="form-label">Designation</label>
+                            <input
+                              class="form-control"
+                              type="email"
+                              formControlName="designationProjectPoint"
+                              id="desgProjectPoint"
+                              placeholder="Enter your Designation"
+                            />
+                          </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                          <div class="mb-3">
+                            <label for="mobProjectPoint" class="form-label">Mobile Number</label>
+                            <input
+                              class="form-control"
+                              type="number"
+                              formControlName="mobileNoProjectPoint"
+                              id="mobProjectPoint"
+                              placeholder="Enter your Mobile Number"
+                            />
+                          </div>
+                        </div>
+                        <div class="col text-end">
+                          <button class="btn btn-danger" type="button" (click)="removeRows(i, 'projectPointContact')"
+                            ><i class="bi bi-trash3-fill"></i
+                          ></button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="d-flex justify-content-end">
+        <button type="button" mat-raised-button color="primary" matStepperNext>Next</button>
+      </div>
+    </mat-step>
+    <!-- applicant details end -->
+    <!-- organisation legal profile start -->
+    <mat-step [stepControl]="organisationLegalform" label="Organisation Legal Profile">
+      <div formGroupName="organisationLegal">
+        <div class="card mt-2">
+          <div class="card-body">
+            <div class="row">
+              <div class="d-flex justify-content-center">
+                <p class="fs-4 fw-bold">Organisation Legal Profile</p>
+              </div>
+              <div class="col-12 col-md-6">
+                <div class="mb-3">
+                  <label for="statusOrg" class="form-label">Legal Status of Organisation</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="statusOrg"
+                    id="statusOrg"
+                    placeholder="Enter the legal status of your organisation"
+                  />
+                </div>
+              </div>
+              <div class="col-12 col-md-6">
+                <div class="mb-3">
+                  <label for="natureBusiness" class="form-label">Nature of business in India</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="natureBusiness"
+                    id="natureBusiness"
+                    placeholder="Enter your nature of business in India"
+                  />
+                </div>
+              </div>
+              <div class="col-12 col-md-6">
+                <div class="mb-3">
+                  <label for="dateIncorporation" class="form-label">Date of Incorporation</label>
+                  <input type="date" class="form-control" formControlName="dateIncorporation" id="dateIncorporation" />
+                </div>
+              </div>
+              <div class="col-12 col-md-6">
+                <div class="mb-3">
+                  <label for="referenceNo" class="form-label">Registar of Companies (Reference No./NGO Registration No.)</label>
+                  <input type="text" class="form-control" formControlName="referenceNo" id="referenceNo" />
+                </div>
+              </div>
+              <div class="col-12 col-md-6">
+                <div class="mb-3">
+                  <label for="addressHeadOrg" class="form-label">Address of the Headquarters</label>
+                  <textarea formControlName="addressHeadOrg" class="form-control" id="addressHeadOrg" rows="3"></textarea>
+                </div>
+              </div>
+              <div class="col-12 col-md-6">
+                <div class="mb-3">
+                  <label for="addressRegisteredOrg" class="form-label">Address of the Registered Office in India</label>
+                  <textarea formControlName="addressRegisteredOrg" class="form-control" id="addressRegisteredOrg" rows="3"></textarea>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="mb-3">
+                  <label for="otherRelevantInfo" class="form-label">Any other relevant information</label>
+                  <textarea formControlName="otherRelevantInfo" class="form-control" id="otherRelevantInfo" rows="3"></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="d-flex justify-content-end">
+        <button mat-raised-button color="primary" class="me-2" matStepperPrevious>Back</button>
+        <button type="button" mat-raised-button color="primary" matStepperNext>Next</button>
+      </div>
+    </mat-step>
+    <!--organisation legeal profile end-->
+
+    <!-- implimentation experience 3 start -->
+    <mat-step [stepControl]="implementExpform" label="Implimentation Experience">
+      <div formGroupName="implementExp">
+        <div class="card mt-2">
+          <div class="card-body" formArrayName="implementExpArr">
+            <div class="d-flex justify-content-center">
+              <p class="fs-4 fw-bold">Implementation Experience</p>
+            </div>
+            <div class="d-flex justify-content-between">
+              <p class="fw-bold"><span>Note : </span>(Information of 3 projects of similar nature or scale in the last 5 year)</p>
+              <button class="btn btn-primary" type="button" (click)="addImplimentExp()"><i class="bi bi-plus-circle-fill"></i></button>
+            </div>
+            <div class="row" *ngFor="let row of implementExpArr.controls; let i = index" [formGroupName]="i">
+              <span class="text-start fw-bold fs-4 my-2">{{ i + 1 }}</span>
+              <div class="col-12 col-md-6">
+                <div class="mb-3">
+                  <label for="clientNameExp" class="form-label">Name of Client</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="clientNameExp"
+                    id="clientNameExp"
+                    placeholder="Enter the name of client"
+                  />
+                </div>
+              </div>
+              <div class="col-12 col-md-6">
+                <div class="mb-3">
+                  <label for="projectScopeExp" class="form-label">Scope of project</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="projectScopeExp"
+                    id="projectScopeExp"
+                    placeholder="Enter the scope of project"
+                  />
+                </div>
+              </div>
+              <div class="col-12 col-md-6">
+                <div class="mb-3">
+                  <label for="projectSrtExp" class="form-label">Project Starting Date</label>
+                  <input type="date" class="form-control" formControlName="projectSrtExp" id="projectSrtExp" />
+                </div>
+              </div>
+              <div class="col-12 col-md-6">
+                <div class="mb-3">
+                  <label for="projectValExp" class="form-label"> Project Value <span class="fw-bold">(In INR)</span> </label>
+                  <input type="number" class="form-control" formControlName="projectValExp" id="projectValExp" />
+                </div>
+              </div>
+              <div class="col-12">
+                <p class="fw-bold">Field the details of the person who can be referred to from Client's side.</p>
+              </div>
+              <div class="card">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-12 col-md-6">
+                      <div class="mb-3">
+                        <label for="nameReferredExp" class="form-label">Name</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          formControlName="nameReferredExp"
+                          id="nameReferredExp"
+                          placeholder="Enter the name of the person who can be reffered to from Client's side"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                      <div class="mb-3">
+                        <label for="designationExp" class="form-label">Designation</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          formControlName="designationExp"
+                          id="designationExp"
+                          placeholder="Enter the designation"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                      <div class="mb-3">
+                        <label for="phoneNoExp" class="form-label">Phone Number</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          formControlName="phoneNoExp"
+                          id="phoneNoExp"
+                          placeholder="Enter the phone number"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                      <div class="mb-3">
+                        <label for="emailExp" class="form-label">Email Id</label>
+                        <input
+                          type="email"
+                          class="form-control"
+                          formControlName="emailExp"
+                          id="emailExp"
+                          placeholder="Enter the email Id"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                      <div class="mb-3">
+                        <label for="postalAddExp" class="form-label">Postal Address</label>
+                        <textarea formControlName="postalAddExp" class="form-control" id="postalAddExp" rows="3"></textarea>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="d-flex justify-content-end">
+                <button class="btn btn-danger" type="button" (click)="removeImplimentExp(i)"><i class="bi bi-trash3-fill"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="d-flex justify-content-end">
+        <button mat-raised-button color="primary" class="me-2" matStepperPrevious>Back</button>
+        <button type="button" mat-raised-button color="primary" matStepperNext>Next</button>
+      </div>
+    </mat-step>
+    <!-- implimentation experience 3 end -->
+
+    <!-- project overview step start -->
+    <mat-step [stepControl]="projectOverviewform" label="Project Overview">
+      <div formGroupName="projectOverview">
+        <div class="card mt-2">
+          <div class="card-body">
+            <div class="d-flex justify-content-center">
+              <p class="fs-4 fw-bold">Project Overview</p>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <div class="mb-3">
+                  <label for="projectTitle" class="form-label">Project Title</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="projectTitle"
+                    id="projectTitle"
+                    placeholder="Enter your Project title"
+                  />
+                </div>
+              </div>
+              <div class="col-12 col-md-6">
+                <div class="mb-3">
+                  <label for="stateProject" class="form-label">State</label>
+                  <input
+                    class="form-control"
+                    formControlName="stateProject"
+                    list="stateProjectOptions"
+                    id="stateProject"
+                    placeholder="Choose your State"
+                  />
+                  <datalist id="stateProjectOptions">
+                    <option value="UttarPradesh"></option>
+                    <option value="Bihar"></option>
+                    <option value="Other"></option>
+                  </datalist>
+                </div>
+              </div>
+              <div class="col-12 col-md-6">
+                <div class="mb-3">
+                  <label for="hazardProject" class="form-label">Hazard</label>
+                  <input
+                    class="form-control"
+                    formControlName="hazardProject"
+                    list="hazardProjectOptions"
+                    id="hazardProject"
+                    placeholder="Choose Hazard"
+                  />
+                  <datalist id="hazardProjectOptions">
+                    <option value="Flood"></option>
+                    <option value="Tusanami"></option>
+                    <option value="Other"></option>
+                  </datalist>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="mb-3">
+                  <label for="hazardProfileArea" class="form-label"
+                    ><span class="fw-bold">Hazard Profile of Area Proposed (200 words max)</span> <br />
+                    Guiding Question <br />
+                    What is the history of the hazard in the region ? <br />
+                    What has been the impact on the life, livelihood and economy of the region <br />
+                  </label>
+                  <textarea formControlName="hazardProfileArea" class="form-control" id="hazardProfileArea" rows="3"></textarea>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="mb-3">
+                  <label for="projectRationale" class="form-label fw-bold">Project Rationale (200 words max)</label>
+                  <textarea formControlName="projectRationale" class="form-control" id="projectRationale" rows="3"></textarea>
+                </div>
+              </div>
+
+              <div class="col-12">
+                <p class="fs-6">Mitigation Measure</p>
+                <div class="row mb-3">
+                  <div class="form-check col-4">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      value="Stracture"
+                      id="projectType1"
+                      formControlName="mitigationCheckProject"
+                    />
+                    <label class="form-check-label" for="projectType1"> Stracture</label>
+                  </div>
+                  <div class="form-check col-4">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      value="Non-Stracture"
+                      id="projectType1"
+                      formControlName="mitigationCheckProject"
+                    />
+                    <label class="form-check-label" for="projectType1"> Non-Stracture</label>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12">
+                <p class="fs-6">Types of Project</p>
+                <div class="row mb-3" formGroupName="typesProjectCheck">
+                  <div class="form-check col-4">
+                    <input class="form-check-input" type="checkbox" id="projectType1" formControlName="Infrastructure" />
+                    <label class="form-check-label" for="projectType1"> Stracture and Infrastructure Projects </label>
+                  </div>
+                  <div class="form-check col-4">
+                    <input class="form-check-input" type="checkbox" id="projectType2" formControlName="Regulations" />
+                    <label class="form-check-label" for="projectType2"> Local Planning and Regulations </label>
+                  </div>
+                  <div class="form-check col-4">
+                    <input class="form-check-input" type="checkbox" id="projectType3" formControlName="Protection" />
+                    <label class="form-check-label" for="projectType3"> Natural System Protection </label>
+                  </div>
+                  <div class="form-check col-4">
+                    <input class="form-check-input" type="checkbox" id="projectType4" formControlName="Awareness" />
+                    <label class="form-check-label" for="projectType4"> Education and Awareness Program </label>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="mb-3">
+                  <label for="projectDescription" class="form-label">Project Description (500 words max)</label>
+                  <textarea
+                    placeholder="Enter your project description"
+                    formControlName="projectDescription"
+                    class="form-control"
+                    id="projectDescription"
+                    rows="3"
+                  ></textarea>
+                </div>
+              </div>
+              <div class="col-12 col-md-6">
+                <div class="mb-3">
+                  <label for="projectObjective" class="form-label">Project Objective</label>
+                  <textarea
+                    placeholder="Enter your project objective"
+                    formControlName="projectObjective"
+                    class="form-control"
+                    id="projectObjective"
+                    rows="3"
+                  ></textarea>
+                </div>
+              </div>
+              <div class="col-12 col-md-6">
+                <div class="mb-3">
+                  <label for="projectGoals" class="form-label">Project Goals</label>
+                  <textarea
+                    placeholder="Enter your project goals"
+                    formControlName="projectGoals"
+                    class="form-control"
+                    id="projectGoals"
+                    rows="3"
+                  ></textarea>
+                </div>
+              </div>
+              <div class="col-12 col-md-6">
+                <div class="mb-3">
+                  <label for="projectActivities" class="form-label">Project Activities</label>
+                  <textarea
+                    placeholder="Enter your project Activities"
+                    formControlName="projectActivities"
+                    class="form-control"
+                    id="projectActivities"
+                    rows="3"
+                  ></textarea>
+                </div>
+              </div>
+              <div class="col-12 col-md-6">
+                <div class="mb-3">
+                  <label for="projectPartners" class="form-label">Project Partners</label>
+                  <textarea
+                    placeholder="Enter your project partners"
+                    formControlName="projectPartners"
+                    class="form-control"
+                    id="projectPartners"
+                    rows="3"
+                  ></textarea>
+                </div>
+              </div>
+
+              <div class="col-12">
+                <div class="mb-3">
+                  <label for="projectIndicators" class="form-label">Project Indicators</label>
+                  <textarea
+                    placeholder="Enter your project partners"
+                    formControlName="projectIndicators"
+                    class="form-control"
+                    id="projectIndicators"
+                    rows="3"
+                  ></textarea>
+                </div>
+              </div>
+
+              <div class="col-12">
+                <div class="d-flex justify-content-between mb-2">
+                  <p class="fs-5 fw-bold">Proposed Human Resources</p>
+
+                  <button type="button" class="btn btn-primary" (click)="addMoreRows('proposedHuman')"
+                    ><i class="bi bi-plus-circle-fill"></i
+                  ></button>
+                </div>
+                <div class="table-responsive">
+                  <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th scope="col" class="minWidthSr">Sr No.</th>
+                        <th scope="col">Aera of Expertise</th>
+                        <th scope="col">Number of Resources (Part Time)</th>
+                        <th scope="col">Number of Resources (Full Time)</th>
+                        <th scope="col">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody formArrayName="proposedHuman">
+                      <tr *ngFor="let row of proposedHuman.controls; let i = index" [formGroupName]="i">
+                        <td>
+                          <span>{{ i + 1 }}</span>
+                        </td>
+                        <td>
+                          <input
+                            type="text"
+                            class="form-control"
+                            formControlName="areaExpertise"
+                            placeholder="Enter the area of expertise"
+                          />
+                        </td>
+                        <td>
+                          <input
+                            type="text"
+                            class="form-control"
+                            formControlName="resourcesPartTime"
+                            placeholder="Enter the number of resources (PartTime)"
+                          />
+                        </td>
+                        <td>
+                          <input
+                            type="text"
+                            class="form-control"
+                            formControlName="resourcesFullTime"
+                            placeholder="Enter the number of resources (FullTime)"
+                          />
+                        </td>
+                        <td>
+                          <button type="button" class="btn btn-danger" (click)="removeRows(i, 'proposedHuman')"
+                            ><i class="bi bi-trash3-fill"></i
+                          ></button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div class="col-12 col-md-6">
+                <div class="mb-3">
+                  <label for="Approximatebudget" class="form-label">Approximate Budget <span class="fw-bold">(INR in Lakhs)</span></label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    formControlName="Approximatebudget"
+                    id="Approximatebudget"
+                    placeholder="Enter Approximate Approximatebudget (In Lakhs)"
+                  />
+                </div>
+              </div>
+              <div class="col-12 col-md-6">
+                <div class="mb-3">
+                  <label for="Approximateproject" class="form-label"
+                    >Approximate Project Duration <span class="fw-bold">(In Months)</span></label
+                  >
+                  <input
+                    type="number"
+                    class="form-control"
+                    formControlName="Approximateproject"
+                    id="Approximateproject"
+                    placeholder="Enter Approximate Project Duration (In Months)"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="d-flex justify-content-end">
+          <button mat-raised-button color="primary" class="me-2" matStepperPrevious>Back</button>
+          <button type="button" mat-raised-button color="primary" matStepperNext>Next</button>
+        </div>
+      </div>
+    </mat-step>
+    <!-- project overview step end -->
+
+    <!-- documnet checklist step start -->
+    <mat-step [stepControl]="documentChecklistform" label="Document Checklist">
+      <div formGroupName="documentChecklist">
+        <div class="card mt-2">
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col" class="minWidthSr">Sr No.</th>
+                    <th scope="col">File Name</th>
+                    <th scope="col" class="maxWidthFile">Choose File <span class="text-danger">(Only in PDF)</span> </th>
+                    <th scope="col" class="text-end">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">1</th>
+                    <td>Cover Letter/Endorsement</td>
+                    <td class="maxWidthFile">
+                      <input
+                        class="form-control"
+                        formControlName="coverLetter"
+                        (change)="onFileSelected($event, 0)"
+                        type="file"
+                        id="coverLetter"
+                    /></td>
+                    <td>
+                      <div class="d-flex justify-content-end">
+                        <button type="button" class="btn btn-primary">Upload</button>
+                        <button type="button" class="btn btn-danger ms-2"><i class="bi bi-trash3-fill"></i></button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">2</th>
+                    <td>Certificate of Registration / Incroporation</td>
+                    <td class="maxWidthFile">
+                      <input
+                        class="form-control"
+                        formControlName="incorporation"
+                        type="file"
+                        id="incorporation"
+                        (change)="onFileSelected($event, 1)"
+                      />
+                    </td>
+                    <td>
+                      <div class="d-flex justify-content-end">
+                        <button type="button" class="btn btn-primary">Upload</button>
+                        <button type="button" class="btn btn-danger ms-2"><i class="bi bi-trash3-fill"></i></button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">3</th>
+                    <td>Copy of PAN</td>
+                    <td class="maxWidthFile">
+                      <input class="form-control" formControlName="cpoyPan" type="file" id="cpoyPan" (change)="onFileSelected($event, 2)" />
+                    </td>
+                    <td>
+                      <div class="d-flex justify-content-end">
+                        <button type="button" class="btn btn-primary">Upload</button>
+                        <button type="button" class="btn btn-danger ms-2"><i class="bi bi-trash3-fill"></i></button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">4</th>
+                    <td>Copy of GST</td>
+                    <td class="maxWidthFile">
+                      <input class="form-control" formControlName="cpoyGst" type="file" id="cpoyGst" (change)="onFileSelected($event, 3)" />
+                    </td>
+                    <td>
+                      <div class="d-flex justify-content-end">
+                        <button type="button" class="btn btn-primary">Upload</button>
+                        <button type="button" class="btn btn-danger ms-2"><i class="bi bi-trash3-fill"></i></button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">5</th>
+                    <td>Company Profile with Contact details</td>
+                    <td class="maxWidthFile">
+                      <input
+                        class="form-control"
+                        formControlName="contactDetails"
+                        type="file"
+                        id="contactDetails"
+                        (change)="onFileSelected($event, 4)"
+                      />
+                    </td>
+                    <td>
+                      <div class="d-flex justify-content-end">
+                        <button type="button" class="btn btn-primary">Upload</button>
+                        <button type="button" class="btn btn-danger ms-2"><i class="bi bi-trash3-fill"></i></button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">6</th>
+                    <td>Register of Companies (Reference No./NGO Registration)</td>
+                    <td class="maxWidthFile">
+                      <input
+                        class="form-control"
+                        formControlName="registerCompRefNo"
+                        type="file"
+                        id="registerCompRefNo"
+                        (change)="onFileSelected($event, 5)"
+                      />
+                    </td>
+                    <td>
+                      <div class="d-flex justify-content-end">
+                        <button type="button" class="btn btn-primary">Upload</button>
+                        <button type="button" class="btn btn-danger ms-2"><i class="bi bi-trash3-fill"></i></button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">7</th>
+                    <td>Audited financial statements for the last three financial year</td>
+                    <td class="maxWidthFile">
+                      <input
+                        class="form-control"
+                        formControlName="auditedFinancial"
+                        type="file"
+                        id="auditedFinancial"
+                        (change)="onFileSelected($event, 6)"
+                      />
+                    </td>
+                    <td>
+                      <div class="d-flex justify-content-end">
+                        <button type="button" class="btn btn-primary">Upload</button>
+                        <button type="button" class="btn btn-danger ms-2"><i class="bi bi-trash3-fill"></i></button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">8</th>
+                    <td>Supporting Documents for project implimentation experience</td>
+                    <td class="maxWidthFile">
+                      <input
+                        class="form-control"
+                        formControlName="supportingImpli"
+                        type="file"
+                        id="supportingImpli"
+                        (change)="onFileSelected($event, 7)"
+                      />
+                    </td>
+                    <td>
+                      <div class="d-flex justify-content-end">
+                        <button type="button" class="btn btn-primary">Upload</button>
+                        <button type="button" class="btn btn-danger ms-2"><i class="bi bi-trash3-fill"></i></button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">9</th>
+                    <td>Expression of Interest for partnerships</td>
+                    <td class="maxWidthFile">
+                      <input
+                        class="form-control"
+                        formControlName="expressionInterest"
+                        type="file"
+                        id="expressionInterest"
+                        (change)="onFileSelected($event, 8)"
+                      />
+                    </td>
+                    <td>
+                      <div class="d-flex justify-content-end">
+                        <button type="button" class="btn btn-primary">Upload</button>
+                        <button type="button" class="btn btn-danger ms-2"><i class="bi bi-trash3-fill"></i></button>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="d-flex justify-content-end">
+        <button mat-raised-button color="primary" class="me-2" matStepperPrevious>Back</button>
+        <button mat-raised-button color="primary" type="button" (click)="gatherPreviewData()" matStepperNext>Preview</button>
+      </div>
+    </mat-step>
+    <!-- documnet checklist step end-->
+    <!-- preview step start -->
+    <mat-step label="Preview">
+      <div class="card mt-2">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-12">
+              <p class="fs-4 fw-bold">Applicants Details</p>
+            </div>
+            <div class="col-12 col-md-6">
+              <div class="mb-3">
+                <label for="applicantDepartment" class="form-label">Name of the Applicant Department/Organisation</label>
+                <p class="form-control">{{ previewData?.applicantDetails.applicantDepartmentName }}</p>
+              </div>
+            </div>
+            <div class="col-12 col-md-6">
+              <div class="mb-3">
+                <label for="typesOfOrg" class="form-label">Types of Organisation</label>
+                <p class="form-control">{{ previewData?.applicantDetails.typeOrg }}</p>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="mb-3">
+                <label for="addressApplicant" class="form-label">Address</label>
+                <p class="form-control">{{ previewData?.applicantDetails.addressApplicant }}</p>
+              </div>
+            </div>
+            <div class="col-12 col-md-6">
+              <div class="mb-3">
+                <label for="stateApplicant" class="form-label">State</label>
+                <p class="form-control">{{ previewData?.applicantDetails.stateApplicant }}</p>
+              </div>
+            </div>
+            <div class="col-12 col-md-6">
+              <div class="mb-3">
+                <label for="districtApplicant" class="form-label">District</label>
+                <p class="form-control">{{ previewData?.applicantDetails.cityApplicant }}</p>
+              </div>
+            </div>
+            <div class="col-12 col-md-6">
+              <div class="mb-3">
+                <label for="cityApplicant" class="form-label">City</label>
+                <p class="form-control">{{ previewData?.applicantDetails.districtApplicant }}</p>
+              </div>
+            </div>
+            <div class="col-12 col-md-6">
+              <div class="mb-3">
+                <label for="pincodeApplicant" class="form-label">Pin-Code</label>
+                <p class="form-control">{{ previewData?.applicantDetails.pincodeApplicant }}</p>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <div class="d-flex justify-content-between mb-2">
+                <p class="fs-6 fw-bold">Project-Point of Contact</p>
+              </div>
+              <div class="card p-2">
+                <div class="card" *ngFor="let row of projectPointContact.controls; let i = index">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-12 col-md-6">
+                        <div class="mb-3">
+                          <label for="nameProjectPoint" class="form-label">Name</label>
+                          <p class="form-control">{{ previewData?.applicantDetails.projectPointContact[i].nameProjectPoint }}</p>
+                        </div>
+                      </div>
+                      <div class="col-12 col-md-6">
+                        <div class="mb-3">
+                          <label for="emailProjectPoint" class="form-label">Email Address</label>
+                          <p class="form-control">{{ previewData?.applicantDetails.projectPointContact[i].emailrojectPoint }}</p>
+                        </div>
+                      </div>
+                      <div class="col-12 col-md-6">
+                        <div class="mb-3">
+                          <label for="desgProjectPoint" class="form-label">Designation</label>
+                          <p class="form-control">{{ previewData?.applicantDetails.projectPointContact[i].designationProjectPoint }}</p>
+                        </div>
+                      </div>
+                      <div class="col-12 col-md-6">
+                        <div class="mb-3">
+                          <label for="mobProjectPoint" class="form-label">Mobile Number</label>
+                          <p class="form-control">{{ previewData?.applicantDetails.projectPointContact[i].mobileNoProjectPoint }}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr class="hr hr-blurry" />
+          <!-- for organisation legal profile strt -->
+          <div class="row">
+            <div class="col-12">
+              <p class="fs-4 fw-bold">Organisation Legal Profile</p>
+            </div>
+            <div class="col-12">
+              <div class="row">
+                <div class="col-12 col-md-6">
+                  <div class="mb-3">
+                    <label for="statusOrg" class="form-label">Legal Status of Organisation</label>
+                    <p class="form-control">{{ previewData?.organisationLegal.statusOrg }}</p>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6">
+                  <div class="mb-3">
+                    <label for="dateIncorporation" class="form-label">Nature of business in India</label>
+                    <p class="form-control">{{ previewData?.organisationLegal.natureBusiness }}</p>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6">
+                  <div class="mb-3">
+                    <label for="natureBusiness" class="form-label">Date of Incorporation</label>
+                    <p class="form-control">{{ previewData?.organisationLegal.dateIncorporation }}</p>
+                  </div>
+                </div>
+
+                <div class="col-12 col-md-6">
+                  <div class="mb-3">
+                    <label for="referenceNo" class="form-label">Registar of Companies (Reference No./NGO Registration No.)</label>
+                    <p class="form-control">{{ previewData?.organisationLegal.referenceNo }}</p>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6">
+                  <div class="mb-3">
+                    <label for="addressHeadOrg" class="form-label">Address of the Headquarters</label>
+                    <p class="form-control">{{ previewData?.organisationLegal.addressHeadOrg }}</p>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6">
+                  <div class="mb-3">
+                    <label for="addressRegisteredOrg" class="form-label">Address of the Registered Office in India</label>
+                    <p class="form-control">{{ previewData?.organisationLegal.addressRegisteredOrg }}</p>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div class="mb-3">
+                    <label for="otherRelevantInfo" class="form-label">Any other relevant information</label>
+                    <p class="form-control">{{ previewData?.organisationLegal.otherRelevantInfo }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- for organisation legal profile end -->
+
+          <!-- implimentation experience start -->
+          <div class="row">
+            <div class="col-12">
+              <p class="fs-4 fw-bold">Implimentation Experience</p>
+            </div>
+          </div>
+          <div class="row" *ngFor="let row of implementExpArr.controls; let i = index" [formGroupName]="i">
+            <div class="col-12 col-md-6">
+              <div class="mb-3">
+                <label for="clientNameExp" class="form-label">Name of Client</label>
+                <p class="form-control">{{ previewData?.implementExp.implementExpArr[i].clientNameExp }}</p>
+              </div>
+            </div>
+            <div class="col-12 col-md-6">
+              <div class="mb-3">
+                <label for="projectScopeExp" class="form-label">Scope of project</label>
+                <p class="form-control">{{ previewData?.implementExp.implementExpArr[i].projectScopeExp }}</p>
+              </div>
+            </div>
+            <div class="col-12 col-md-6">
+              <div class="mb-3">
+                <label for="projectSrtExp" class="form-label">Project Starting Date</label>
+                <p class="form-control">{{ previewData?.implementExp.implementExpArr[i].projectSrtExp }}</p>
+              </div>
+            </div>
+            <div class="col-12 col-md-6">
+              <div class="mb-3">
+                <label for="projectValExp" class="form-label"> Project Value (In INR)</label>
+                <p class="form-control">{{ previewData?.implementExp.implementExpArr[i].projectValExp }}</p>
+              </div>
+            </div>
+            <div class="col-12">
+              <p class="fs-6 fw-bold">Field the details of the person who can be referred to from Client's side.</p>
+            </div>
+            <div class="card">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-12 col-md-6">
+                    <div class="mb-3">
+                      <label for="nameReferredExp" class="form-label">Name</label>
+                      <p class="form-control">{{ previewData?.implementExp.implementExpArr[i].nameReferredExp }}</p>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <div class="mb-3">
+                      <label for="designationExp" class="form-label">Designation</label>
+                      <p class="form-control">{{ previewData?.implementExp.implementExpArr[i].designationExp }}</p>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <div class="mb-3">
+                      <label for="phoneNoExp" class="form-label">Phone Number</label>
+                      <p class="form-control">{{ previewData?.implementExp.implementExpArr[i].phoneNoExp }}</p>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <div class="mb-3">
+                      <label for="emailExp" class="form-label">Email Id</label>
+                      <p class="form-control">{{ previewData?.implementExp.implementExpArr[i].emailExp }}</p>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <div class="mb-3">
+                      <label for="postalAddExp" class="form-label">Postal Address</label>
+                      <p class="form-control">{{ previewData?.implementExp.implementExpArr[i].postalAddExp }}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- implimentation experience end -->
+
+          <!-- Project Overview start -->
+          <div class="row">
+            <div class="col-12">
+              <p class="fs-4 fw-bold"> Project Overview </p>
+            </div>
+            <div class="col-12 col-md-6">
+              <div class="mb-3">
+                <label for="projectTitle" class="form-label">Project Title</label>
+                <p class="form-control">{{ previewData?.projectOverview.projectTitle }}</p>
+              </div>
+            </div>
+            <div class="col-12 col-md-6">
+              <div class="mb-3">
+                <label for="projectRationale" class="form-label">Project Rationale</label>
+                <p class="form-control">{{ previewData?.projectOverview.projectRationale }}</p>
+              </div>
+            </div>
+            <div class="col-12 col-md-6">
+              <div class="mb-3">
+                <label for="stateProject" class="form-label">State</label>
+                <p class="form-control">{{ previewData?.projectOverview.stateProject }}</p>
+              </div>
+            </div>
+            <div class="col-12 col-md-6">
+              <div class="mb-3">
+                <label for="hazardProject" class="form-label">Hazard</label>
+                <p class="form-control">{{ previewData?.projectOverview.hazardProject }}</p>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="mb-3">
+                <label for="hazardProfileArea" class="form-label">Hazard Profile of Area Proposed (200 words max)</label>
+                <p class="form-control">{{ previewData?.projectOverview.hazardProfileArea }}</p>
+              </div>
+            </div>
+
+            <div class="col-12">
+              <label class="form-label">Mitigation Measure</label>
+              <div class="mb-2">
+                <span class="badge rounded-pill bg-secondary me-2" *ngIf="previewData?.projectOverview?.mitigationCheckProject?.stracture"
+                  >Structural</span
+                >
+                <span
+                  class="badge rounded-pill bg-secondary me-2"
+                  *ngIf="previewData?.projectOverview?.mitigationCheckProject?.nonStracture"
+                  >Non-Structural</span
+                >
+              </div>
+            </div>
+            <div class="col-12">
+              <label class="form-label">Types of Project</label>
+              <div class="mb-2">
+                <span class="badge rounded-pill bg-secondary me-2" *ngIf="previewData?.projectOverview?.typesProjectCheck?.Infrastructure"
+                  >Infrastructure</span
+                >
+                <span class="badge rounded-pill bg-secondary me-2" *ngIf="previewData?.projectOverview?.typesProjectCheck?.Regulations"
+                  >Regulations</span
+                >
+                <span class="badge rounded-pill bg-secondary me-2" *ngIf="previewData?.projectOverview?.typesProjectCheck?.Protection"
+                  >Protection</span
+                >
+                <span class="badge rounded-pill bg-secondary me-2" *ngIf="previewData?.projectOverview?.typesProjectCheck?.Awareness"
+                  >Awareness</span
+                >
+              </div>
+            </div>
+            <div class="col-12 col-md-6">
+              <div class="mb-3">
+                <label for="projectObjective" class="form-label">Project Objective</label>
+                <p class="form-control">{{ previewData?.projectOverview.projectObjective }}</p>
+              </div>
+            </div>
+            <div class="col-12 col-md-6">
+              <div class="mb-3">
+                <label for="projectGoals" class="form-label">Project Goals</label>
+                <p class="form-control">{{ previewData?.projectOverview.projectGoals }}</p>
+              </div>
+            </div>
+            <div class="col-12 col-md-6">
+              <div class="mb-3">
+                <label for="projectActivities" class="form-label">Project Activities</label>
+                <p class="form-control">{{ previewData?.projectOverview.projectActivities }}</p>
+              </div>
+            </div>
+            <div class="col-12 col-md-6">
+              <div class="mb-3">
+                <label for="projectPartners" class="form-label">Project Partners</label>
+                <p class="form-control">{{ previewData?.projectOverview.projectPartners }}</p>
+              </div>
+            </div>
+            <div class="col-12 col-md-6">
+              <div class="mb-3">
+                <label for="Approximatebudget" class="form-label">Approximate Budget (INR in Lakhs)</label>
+                <p class="form-control">{{ previewData?.projectOverview.Approximatebudget }}</p>
+              </div>
+            </div>
+            <div class="col-12 col-md-6">
+              <div class="mb-3">
+                <label for="Approximateproject" class="form-label">Approximate Project Duration (In Months)</label>
+                <p class="form-control">{{ previewData?.projectOverview.Approximateproject }}</p>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="mb-3">
+                <label for="projectIndicators" class="form-label">Project Indicators</label>
+                <p class="form-control">{{ previewData?.projectOverview.projectIndicators }}</p>
+              </div>
+            </div>
+
+            <div class="col-12">
+              <div class="table-responsive">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th scope="col" class="minWidthSr">Sr No.</th>
+                      <th scope="col">Aera of Expertise</th>
+                      <th scope="col">Number of Resources (Part Time)</th>
+                      <th scope="col">Number of Resources (Full Time)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let row of proposedHuman.controls; let i = index">
+                      <td>
+                        <span>{{ i + 1 }}</span>
+                      </td>
+                      <td>
+                        <p class="form-control">{{ previewData?.projectOverview.proposedHuman[i].areaExpertise }}</p>
+                      </td>
+                      <td>
+                        <p class="form-control">{{ previewData?.projectOverview.proposedHuman[i].resourcesPartTime }}</p>
+                      </td>
+                      <td>
+                        <p class="form-control">{{ previewData?.projectOverview.proposedHuman[i].resourcesFullTime }}</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <!-- Project Overview end -->
+
+          <!-- checkList start -->
+          <div class="row">
+            <div class="col-13">
+              <p class="fs-4 fw-bold"> Document Checklist </p>
+            </div>
+            <div class="col-12">
+              <div class="table-responsive">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th scope="col" class="minWidthSr">Sr No.</th>
+                      <th scope="col">File Name</th>
+                      <th scope="col" class="maxWidthFile">Chosen File</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">1</th>
+                      <td>Cover Letter/Endorsement</td>
+                      <td class="maxWidthFile">
+                        <p class="form-control">{{ previewData?.documentChecklist?.files[0] }}</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row">2</th>
+                      <td>Certificate of Registration / Incroporation</td>
+                      <td class="maxWidthFile">
+                        <p class="form-control">{{ previewData?.documentChecklist?.files[1] }}</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row">3</th>
+                      <td>Copy of PAN</td>
+                      <td class="maxWidthFile">
+                        <p class="form-control">{{ previewData?.documentChecklist?.files[2] }}</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row">4</th>
+                      <td>Copy of GST</td>
+                      <td class="maxWidthFile">
+                        <p class="form-control">{{ previewData?.documentChecklist?.files[3] }}</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5</th>
+                      <td>Company Profile with Contact details</td>
+                      <td class="maxWidthFile">
+                        <p class="form-control">{{ previewData?.documentChecklist?.files[4] }}</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row">6</th>
+                      <td>Register of Companies (Reference No./NGO Registration)</td>
+                      <td class="maxWidthFile">
+                        <p class="form-control">{{ previewData?.documentChecklist?.files[5] }}</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row">7</th>
+                      <td>Audited financial statements for the last three financial year</td>
+                      <td class="maxWidthFile">
+                        <p class="form-control">{{ previewData?.documentChecklist?.files[6] }}</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row">8</th>
+                      <td>Supporting Documents for project implimentation experience</td>
+                      <td class="maxWidthFile">
+                        <p class="form-control">{{ previewData?.documentChecklist?.files[7] }}</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row">9</th>
+                      <td>Expression of Interest for partnerships</td>
+                      <td class="maxWidthFile">
+                        <p class="form-control">{{ previewData?.documentChecklist?.files[8] }}</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <!-- checkList end -->
+        </div>
+      </div>
+      <div class="d-flex justify-content-end">
+        <button mat-raised-button color="primary" class="me-2" (click)="goToStep(stepper, 0)">Edit</button>
+        <button mat-raised-button color="primary" type="submit" matStepperNext>Submit</button>
+      </div>
+    </mat-step>
+    <!-- preview step end-->
+  </mat-stepper>
+</form>
